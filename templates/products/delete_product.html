@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ products.name }}<img width="50px" height="50px" src={{ products.product_picture.picture.url }}>を在庫一覧から削除しますか？</h2>
+<form method="POST">
+{% csrf_token %}
+<input type="submit" value="削除する">
+</form>
+{% endblock %}

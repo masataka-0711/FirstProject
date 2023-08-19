@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load mathfilters %}
+<div class="col-10 offset-1 ">
+<h2>在庫一覧</h2>
+<form method="get" action="{% url 'products:product_list' %}">
+<p>カテゴリー: <input type="text" name="product_type_name" value="{{ product_type_name }}"/></p>
+<p>商品名: <input type="text" name="product_name" value="{{ product_name }}"/></p>
+<p>在庫数の量で並び替える:
+    昇順<input type="radio" name="order_by_stock" value="1" {% if ascending %}checked{% endif %}>
+    降順<input type="radio" name="order_by_stock" value="2" {% if descending %}checked{% endif %}>
+</p>
+<p><input type="submit" value="絞込み検索"/></p>
+</form>
+<table class="table table-striped table-bordered">
+<thead class="table-dark">
+    <tr>
+        <td>【収納場所】</td>
+        <td>【商品名】</td>
+        <td>【適正在庫数】</td>
+        <td>【在庫数】</td>
+        <td>【発注業者】</td>
+        <td></td>
+    </tr>
+</thead>
+<tbody>
+{% for product in object_list %}
+    <tr>
+    
+        <td>{{ product.product_type.name }}</td>
+        <td><input type="checkbox" name="level" value="ok">{{ product.name }}<img width="50px" height="50px" src={{ product.product_picture.picture.url }}></td>
+        <td>{{ product.proper_stock }}個</td>
+        <td>{{ product.stock }}個<br>
+        <p style="color: red">{{product.proper_stock|sub:product.stock}}個足りません</p>
+        </td>
+        <td>{{ product.trader.name }}</td>
+        <th> 
+        <a class ="btn btn-primary" href="{% url 'products:update_product' product.id %}">変更する</a>
+        <a class ="btn btn-danger" href="{% url 'products:delete_product' product.id %}">削除する</a>
+        </th>
+        </form>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
