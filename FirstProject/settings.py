@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qxbjde6c)#9h*3y8^fb63^51g3me!j2@k%+4s38v@ze$m^xe0f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'maedamasataka.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'masataka.pythonanywhere.com']
 
 
 # Application definition
@@ -138,5 +138,6 @@ SECRET_KEY = get_random_secret_key()
 
 try:
     from .local_settings import *
-except:
+except ImportError:
     pass
+
