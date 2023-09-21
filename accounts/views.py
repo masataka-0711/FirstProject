@@ -19,10 +19,11 @@ class UserLoginView(FormView):
     def post(self, request, *args, **kwargs):
         email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(email=email, password=password)
+        user = authenticate(username=email, password=password)
         if user is not None and user.is_active:
             login(request, user)
         return redirect('accounts:home')
+    
 class UserLogoutView(View):
     
     def get(self, request, *args, **kwargs):
